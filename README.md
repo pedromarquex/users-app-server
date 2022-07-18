@@ -1,0 +1,7 @@
+- [] criar usuário
+  - [] criar avatar
+- [] atualizar usuário
+  - atualizar avatar
+- [] listar usuários
+- [] mostrar usuário
+- [] deletar usuário
