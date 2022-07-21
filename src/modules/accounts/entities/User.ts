@@ -19,7 +19,7 @@ class User {
   created_at: Date;
 
   @Column()
-  avatar_url: string;
+  avatar: string;
 
   constructor() {
     if (!this.id) {
