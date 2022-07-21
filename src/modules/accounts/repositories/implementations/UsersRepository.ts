@@ -48,7 +48,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async update({ id, ...userData }: IUpdateUserDTO): Promise<void> {
+  async update({ id, ...userData }: IUpdateUserDTO): Promise<User | undefined> {
     const user = this.repository.findOne(id);
 
     if (!user) {
@@ -56,6 +56,8 @@ class UsersRepository implements IUsersRepository {
     }
 
     await this.repository.update(id, userData);
+
+    return this.repository.findOne(id);
   }
 
   async delete(id: string): Promise<void> {
