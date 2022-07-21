@@ -12,6 +12,12 @@ class UpdateUserUseCase {
   ) {}
 
   async execute(userData: IUpdateUserDTO): Promise<User | undefined> {
+    const user = await this.usersRepository.findById(userData.id);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     return this.usersRepository.update(userData);
   }
 }

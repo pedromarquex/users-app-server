@@ -4,7 +4,7 @@ import { User } from "../entities/User";
 
 interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<void>;
-  findById(id: string): Promise<User>;
+  findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
   list(): Promise<User[]>;
   update(userData: IUpdateUserDTO): Promise<User | undefined>;

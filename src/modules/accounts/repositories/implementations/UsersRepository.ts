@@ -28,24 +28,12 @@ class UsersRepository implements IUsersRepository {
     await this.repository.save(user);
   }
 
-  async findById(id: string): Promise<User> {
-    const user = await this.repository.findOne(id);
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    return user;
+  async findById(id: string): Promise<User | undefined> {
+    return this.repository.findOne(id);
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
-    const user = await this.repository.findOne({ where: { email } });
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    return user;
+    return this.repository.findOne({ where: { email } });
   }
 
   async update({ id, ...userData }: IUpdateUserDTO): Promise<User | undefined> {
