@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import {
+  AfterLoad,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity("users")
@@ -20,6 +26,15 @@ class User {
 
   @Column()
   avatar: string;
+
+  protected avatar_url: string;
+
+  @AfterLoad()
+  getAvatarUrl() {
+    if (this.avatar) {
+      this.avatar_url = `http://localhost:3333/avatar/${this.avatar}`;
+    }
+  }
 
   constructor() {
     if (!this.id) {

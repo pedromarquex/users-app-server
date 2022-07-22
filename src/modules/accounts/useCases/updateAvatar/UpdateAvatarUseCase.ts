@@ -5,11 +5,11 @@ import { IUsersRepository } from "../../repositories/IUserRepository";
 
 interface IRequest {
   user_id: string;
-  avatar: string;
+  avatar?: string;
 }
 
 @injectable()
-class UpdateUserAvatarUseCase {
+class UpdateAvatarUseCase {
   constructor(
     @inject("UsersRepository")
     private usersRespository: IUsersRepository
@@ -25,8 +25,10 @@ class UpdateUserAvatarUseCase {
       await deleteFile(`./tmp/avatar/${user?.avatar}`);
     }
 
-    await this.usersRespository.update({ id: user_id, avatar });
+    if (avatar) {
+      await this.usersRespository.update({ id: user_id, avatar });
+    }
   }
 }
 
-export { UpdateUserAvatarUseCase };
+export { UpdateAvatarUseCase };
