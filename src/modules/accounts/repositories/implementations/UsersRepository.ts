@@ -1,6 +1,7 @@
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
+import { IListUsersResponse } from "../../dtos/IListUsersResponse";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUserRepository";
@@ -56,8 +57,19 @@ class UsersRepository implements IUsersRepository {
     await this.repository.delete(id);
   }
 
-  async list(): Promise<User[]> {
-    return this.repository.find();
+  async list(page = 1, per_page = 6): Promise<IListUsersResponse> {
+    const [users, total] = await this.repository.findAndCount({
+      take: per_page,
+      skip: page ? (page - 1) * per_page : 0,
+    });
+
+    return {
+      total,
+      per_page,
+      page,
+      total_pages: Math.ceil(total / per_page),
+      users,
+    };
   }
 }
 
