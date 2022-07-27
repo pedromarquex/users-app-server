@@ -1,4 +1,4 @@
-<h1> Users app - backend 📱</h1>
+<h1> Users app - backend 🖥 </h1>
 
 <h2>
     Visualize and manage your users
@@ -49,6 +49,22 @@ cd users-app-server
 npm install
 docker-compose up
 ```
+
+Make sure you have the database created before make requests to the server.
+
+- Running migrations:
+
+```
+npm run typeorm migration:run
+```
+
+- Running seeds:
+  The seeds are used to create the users table and insert some users.
+
+```
+npm run seed:users
+```
+
 
 ### Requests
 
